@@ -1,0 +1,1 @@
+export const baseUrl = window.location.origin + '/src/assets/pdts/0.jpg'
