@@ -24,6 +24,7 @@ function NewDrops() {
                 pdtname={product.name}
                 productImage={product.image}
                 pdtprice={product.price}
+                pdtcat = {product.category}
               />
             </Link>
           );

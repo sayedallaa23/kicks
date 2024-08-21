@@ -12,12 +12,13 @@ function NewDropsCard(props) {
       <img className="new-drops-svg" src={New} alt="" />
 
       <p>
-        {props.pdtname} <br /> RUNNING SHOES
+        {props.pdtname} <br /> {props.pdtcat} Shoes
       </p>
-      <button className="wide-black-btn" 
-      // onClick={(e)=>{e.preventDefault();
-      //   window.location.href="/pdt"
-      // }}
+      <button
+        className="wide-black-btn"
+        // onClick={(e)=>{e.preventDefault();
+        //   window.location.href="/pdt"
+        // }}
       >
         View Product - <span className="or-span">${props.pdtprice}</span>
       </button>
