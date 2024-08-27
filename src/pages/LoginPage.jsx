@@ -6,7 +6,7 @@ import google from "../assets/google.svg";
 import { Authcontext } from "../store/AuthContext";
 import { useNavigate } from "react-router-dom";
 import github from "../assets/github.svg";
-import { 
+import {
   onAuthStateChanged,
   signInWithEmailAndPassword,
   signInWithPopup,
@@ -63,45 +63,43 @@ const LoginPage = () => {
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [isempty, setisempty] = React.useState(false);
+  const [errmes, seterrmes] = React.useState(false);
+
   const validateInputs = () => {
-    if (email.trim()===""||password.trim()==="") {
+    if (email.trim() === "" || password.trim() === "") {
       return false;
     } else {
       return true;
     }
   };
   const signIn = async () => {
-
-    if(validateInputs){
-       try {
-      await signInWithEmailAndPassword(auth, email, password);
-    } catch (err) {
-      console.error(err);
-    }   
-    setisempty(false);
-  
-  if (!validateInputs()) {
-    setisempty(true);
-  }
+    if (validateInputs) {
+      try {
+        await signInWithEmailAndPassword(auth, email, password);
+      } catch (err) {
+        console.error(err);
+        seterrmes(true);
+      }
+      setisempty(false);
     }
-
+    if (!validateInputs()) {
+      setisempty(true);
+      seterrmes(false);
+    }
   };
   onAuthStateChanged(auth, (user) => {
     if (user) {
       // User is signed in, see docs for a list of available properties
       // https://firebase.google.com/docs/reference/js/auth.user
       const uid = user.uid;
-      console.log(uid);
+
       value[1](true);
-      console.log("login state", value[0]);
-      // window.location.href="/"
       navigate("/");
 
       // ...
     } else {
       // User is signed out
       // ...
-      console.log("not alll");
       value[1](false);
     }
   });
@@ -122,9 +120,16 @@ const LoginPage = () => {
           />
           <Checkbox label="Keep me logged in - applies to all log in options below." />
           {isempty && (
-          <span style={{ color: "red" }}>please fill all the fields</span>
-        )}
-          <button className="wide-black-btn" onClick={signIn} style={{marginTop:"10px"}}>
+            <span style={{ color: "red" }}>please fill all the fields</span>
+          )}
+          {errmes && (
+            <span style={{ color: "red" }}>wrong email or password</span>
+          )}
+          <button
+            className="wide-black-btn"
+            onClick={signIn}
+            style={{ marginTop: "10px" }}
+          >
             Email Login
           </button>
           <div className="reg-btns">
