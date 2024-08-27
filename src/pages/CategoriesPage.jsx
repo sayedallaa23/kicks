@@ -50,10 +50,10 @@ const CatigoriesPage = () => {
   const [price, setPrice] = React.useState(1000);
   const [show, setShow] = React.useState(false);
   function handlefilters() {
-    if (filterRef.current.style.display === "flex") {
+    if (filterRef.current.style.display === "block") {
       filterRef.current.style.display = "none";
     } else {
-      filterRef.current.style.display = "flex";
+      filterRef.current.style.display = "block";
     }
   }
   // filtring functionality
@@ -729,12 +729,7 @@ const CatigoriesPage = () => {
               })
             ) : (
               <div>
-                <img
-                  src={nopdt}
-                  alt=""
-                  srcset=""
-                  className="no-pdt-img"
-                />
+                <img src={nopdt} alt="" srcset="" className="no-pdt-img" />
               </div>
             )}
             <Pagination
