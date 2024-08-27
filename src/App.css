@@ -524,6 +524,7 @@ footer {
 .is-dark {
   opacity: 0.6;
   cursor: default;
+  pointer-events: none;
 }
 
 .review-card-rating span {
@@ -819,7 +820,7 @@ p {
   width: 80%;
 }
 .register-container .login-top-right {
-  height: 40vh;
+  height: 55vh;
 }
 .cat-page-container .cat-page-header {
   background-image: url("../src/assets/pdts/50.jpg");
@@ -887,6 +888,9 @@ p {
 }
 .cat-page-container .toggled-title {
   display: none;
+}
+.no-pdt-img{
+  margin-left: 50%;
 }
 /* home page mobile css */
 @media only screen and (max-width: 700px) {
@@ -1490,6 +1494,9 @@ p {
 .cat-page-container{
   width: 358px;
 }
-
+.no-pdt-img{
+  margin-left: -2px;
+  width: 90%;
+}
 }
 

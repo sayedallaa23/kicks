@@ -4,14 +4,28 @@ import lense from "../assets/lense.svg";
 import profile from "../assets/profile.svg";
 import cart from "../assets/cart.svg";
 import { Link } from "react-router-dom";
-
+import { Authcontext } from "../store/AuthContext";
+import { signOut, getAuth } from "firebase/auth";
+import { auth } from "../components/firebase";
+import logout from "../assets/logout.svg";
 function Navbar() {
+  const value = React.useContext(Authcontext);
+
+  const signout2 = () => {
+    signOut(auth)
+      .then(() => {
+        window.location.href = "/";
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
   return (
     <div className="nav-bar">
       <div className="nav-links">
-        <a href="/categories">New Drops🔥</a>
-        <a href="/categories">Men</a>
-        <a href="/categories">Women</a>
+        <Link to="/categories">New Drops🔥</Link>
+        <Link to="/categories">Men</Link>
+        <Link to="/categories">Women</Link>
       </div>
       <div className="ham-menu-bars">
         <a href="javascript:void(0);" class="icon" onclick="myFunction()">
@@ -19,21 +33,29 @@ function Navbar() {
         </a>
       </div>
       <div className="ham-menu">
-        <a href="">New Drops🔥</a>
-        <a href="">Men</a>
-        <a href="">Women</a>
+        <Link to="">New Drops🔥</Link>
+        <Link to="">Men</Link>
+        <Link to="">Women</Link>
       </div>
       <div className="nav-logo">
-        <a href="/">
-        <img src={kicks} alt="kicks logo" /></a>
+        <Link href="/">
+          <img src={kicks} alt="kicks logo" />
+        </Link>
       </div>
       <div className="nav-icons">
         <a href="">
           <img className="lense-icon" src={lense} alt="lense" />
         </a>
-        <Link to={"/login"}>
-          <img src={profile} alt="profile" />
-        </Link>
+        {value[0] === false ? (
+          <Link to={"/login"}>
+            <img src={profile} alt="profile" />
+          </Link>
+        ) : (
+          <Link onClick={signout2} to={"/"}>
+            <img src={logout} />
+          </Link>
+        )}
+
         <a href="">
           <img src={cart} alt="cart" />
         </a>

@@ -4,8 +4,25 @@ import google from "../assets/google.svg";
 import apple from "../assets/apple.svg";
 import Credentials from "../components/Credentials";
 import { defer, Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import github from "../assets/github.svg";
+
+import {
+  getAuth,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  signInWithPopup,
+  fetchSignInMethodsForEmail,
+} from "firebase/auth";
+import {
+  auth,
+  googleProvider,
+  facebookProvider,
+  githubProvider,
+} from "../components/firebase";
 
 const RegisterPage = () => {
+  const navigate = useNavigate();
   const Checkbox = (props) => {
     return (
       <div className="checkbox-wrapper">
@@ -15,11 +32,75 @@ const RegisterPage = () => {
             name={props.name}
             value={props.value}
             style={{ marginRight: "10px" }}
+            onChange={props.onChange}
           />
           <span>{props.label}</span>
         </label>
       </div>
     );
+  };
+  const [email, setEmail] = React.useState("");
+  const [password, setPassword] = React.useState("");
+  const [checkboxChecked, setCheckboxChecked] = React.useState(false);
+  const [userHasAccount, setuserhasaccount] = React.useState(false);
+  const [isempty, setisempty] = React.useState(false);
+  const [errmes, seterrmes] = React.useState(false);
+  const [firstName, setFirstName] = React.useState("");
+  const [lastName, setLastName] = React.useState("");
+  const [gender, setGender] = React.useState("");
+  const validateInputs = () => {
+    if (firstName.trim() === "" || lastName.trim() === "" || gender === ""||email.trim()===""||password.trim()==="") {
+      return false;
+    } else {
+      return true;
+    }
+  };
+  const signUp = async () => {
+    const user = auth.currentUser;
+    if (checkboxChecked && validateInputs()) {
+      try {
+        await createUserWithEmailAndPassword(auth, email, password);
+        navigate("/");
+        setuserhasaccount(true);
+      } catch (err) {
+        console.error(err.message);
+        if (err.message.includes("email-already-in-use")) {
+          setuserhasaccount(true);
+          seterrmes(false);
+        } else if (err.message.includes("invalid-email")) {
+          setuserhasaccount(false);
+          seterrmes(true);
+        }
+      }
+      setisempty(false);
+    }
+    if (!validateInputs()) {
+      setisempty(true);
+    }
+  };
+  const signInWithGoogle = async () => {
+    try {
+      await signInWithPopup(auth, googleProvider);
+      navigate("/");
+    } catch (err) {
+      console.error(err);
+    }
+  };
+  const signInWithFacebook = async () => {
+    try {
+      await signInWithPopup(auth, facebookProvider);
+      navigate("/");
+    } catch (err) {
+      console.error(err);
+    }
+  };
+  const signInWithGithub = async () => {
+    try {
+      await signInWithPopup(auth, githubProvider);
+      navigate("/");
+    } catch (err) {
+      console.error(err);
+    }
   };
   return (
     <div className="register-container">
@@ -28,22 +109,22 @@ const RegisterPage = () => {
         <p>Sign up with</p>
         <div className="reg-btns">
           <div className="logs-mails">
-            <a href="">
+            <Link href="" onClick={signInWithGoogle}>
               {" "}
               <div className="google">
                 <img src={google} alt="google" />
               </div>
-            </a>
-            <a href="">
+            </Link>
+            <Link href="" onClick={signInWithGithub}>
               <div className="apple">
-                <img src={apple} alt="apple" />
+                <img src={github} alt="github" />
               </div>
-            </a>
-            <a href="">
+            </Link>
+            <Link href="" onClick={signInWithFacebook}>
               <div className="facebook">
                 <img src={facebok} alt="facebook" />
               </div>
-            </a>
+            </Link>
           </div>
         </div>
         <p>OR</p>
@@ -53,12 +134,51 @@ const RegisterPage = () => {
           type2="name"
           placeholder1="First Name"
           placeholder2="Last Name"
+          setEmail={setFirstName}
+          setPassword={setLastName}
+          handlerFuntion={() => {
+            return null;
+          }}
         />
+
         <h2>Gender</h2>
         <div className="gender-selector">
-          <Checkbox label="Male" value="male" type="radio" name="gender"/>
-          <Checkbox label="Female" value="female" type="radio"  name="gender"/>
-          <Checkbox label="Other" value="other" type="radio"  name="gender"/>
+          <div className="checkbox-wrapper">
+            <input
+              value="male"
+              type="radio"
+              name="gender"
+              style={{ marginRight: "10px" }}
+              onChange={(e) => {
+                setGender(e.target.value);
+              }}
+            />{" "}
+            <span>Male</span>
+          </div>
+          <div className="checkbox-wrapper">
+            <input
+              value="female"
+              type="radio"
+              name="gender"
+              style={{ marginRight: "10px" }}
+              onChange={(e) => {
+                setGender(e.target.value);
+              }}
+            />
+            <span>Female</span>
+          </div>
+          <div className="checkbox-wrapper">
+            <input
+              value="other"
+              type="radio"
+              name="gender"
+              style={{ marginRight: "10px" }}
+              onChange={(e) => {
+                setGender(e.target.value);
+              }}
+            />
+            <span>Other</span>
+          </div>
         </div>
         <h2>Login Details</h2>
         <Credentials
@@ -66,24 +186,61 @@ const RegisterPage = () => {
           type2="password"
           placeholder1="Email"
           placeholder2="Password"
+          setEmail={setEmail}
+          setPassword={setPassword}
         />
-        <p>
+        {userHasAccount === true ? (
+          <span style={{ color: "red" }}>
+            this email is already registered <Link to={"/login"}>Log in</Link>
+          </span>
+        ) : (
+          ""
+        )}
+        {errmes ? (
+          <span style={{ color: "red" }}>please enter a valid email</span>
+        ) : (
+          ""
+        )}
+        <p style={{ marginTop: "10px" }}>
           Minimum 8 characters with at least one uppercase, one lowercase, one
           special character and a number
         </p>
-        <div className="checkbox-wrapper" >
-        <label>
-          <input type="checkbox" style={{ marginRight: "10px" }} />
-          <span >By clicking 'Log In' you agree to our website KicksClub Terms & Conditions, Kicks Privacy Notice and Terms & Conditions.</span>
-        </label>
-      </div>
-      <div className="checkbox-wrapper" >
-        <label>
-          <input type="checkbox" style={{ marginRight: "10px" }} />
-          <span >Keep me logged in - applies to all log in options below. <a href="" style={{textDecoration:"none"}}>More info</a></span>
-        </label>
-      </div>
-      <button className="wide-black-btn">Register</button>
+        <div className="checkbox-wrapper">
+          <label>
+            <input
+              type="checkbox"
+              style={{ marginRight: "10px" }}
+              onChange={(e) => setCheckboxChecked(e.target.checked)}
+            />
+            <span>
+              By clicking 'Log In' you agree to our website KicksClub Terms &
+              Conditions, Kicks Privacy Notice and Terms & Conditions.
+            </span>
+          </label>
+        </div>
+        <div className="checkbox-wrapper">
+          <label>
+            <input type="checkbox" style={{ marginRight: "10px" }} />
+            <span>
+              Keep me logged in - applies to all log in options below.{" "}
+              <a href="" style={{ textDecoration: "none" }}>
+                More info
+              </a>
+            </span>
+          </label>
+        </div>
+        {isempty && (
+          <span style={{ color: "red" }}>please fill all the fields</span>
+        )}
+        <button
+          className={`wide-black-btn ${
+            checkboxChecked === false ? "is-dark" : ""
+          }`}
+          onClick={signUp}
+          style={{ marginTop: "10px" }}
+        >
+          Register
+        </button>
       </div>
       <div className="login-top-right">
         <h1>Join Kicks Club Get Rewarded Today.</h1>
@@ -103,8 +260,8 @@ const RegisterPage = () => {
           Join now to start earning points, reach new levels and unlock more
           rewards and benefits from adiClub.​
         </p>
-        <a href="/register" >
-        <button className="wide-black-btn">Join the club</button>
+        <a href="/register">
+          <button className="wide-black-btn">Join the club</button>
         </a>
       </div>
     </div>

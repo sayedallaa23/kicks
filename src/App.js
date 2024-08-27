@@ -15,6 +15,7 @@ import SiteLayout from "./pages/SiteLayout";
 import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
 import CatigoriesPage from "./pages/CategoriesPage";
+import { Authprovider } from "./store/AuthContext";
 const router = createBrowserRouter([
   {
     element: <SiteLayout />,
@@ -39,14 +40,18 @@ const router = createBrowserRouter([
       {
         path: "/categories",
         element: <CatigoriesPage />,
-      }
-
+      },
     ],
   },
 ]);
 
 function App() {
-  return <RouterProvider router={router} />;
+  return (
+    <Authprovider>
+      {" "}
+      <RouterProvider router={router} />
+    </Authprovider>
+  );
 }
 
 export default App;

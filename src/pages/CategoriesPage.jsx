@@ -1,9 +1,14 @@
 import * as React from "react";
 import products from "../data.js";
 import NewDropsCard from "../components/NewDropsCard.jsx";
-import { useSubmit } from "react-router-dom";
+import { Link, useSubmit } from "react-router-dom";
 import nopdt from "../assets/no-product.png";
+import Pagination from "../components/Pagination.jsx";
 const CatigoriesPage = () => {
+  React.useEffect(() => {
+    // Scroll to the top when the component mounts
+    window.scrollTo(0, 0);
+  }, []);
   const filterRef = React.useRef(null);
   const filterbtnRef = React.useRef(null);
   const allColors = [
@@ -28,6 +33,15 @@ const CatigoriesPage = () => {
     "Golf",
     "Outdoor",
   ];
+  // *********************pagination********************
+  const [currentPage, setCurrentPage] = React.useState(1);
+  const [postsPerPage, setPostsPerPage] = React.useState(9);
+  const lastPostIndex = currentPage * postsPerPage;
+  const firstPostIndex = lastPostIndex - postsPerPage;
+  // const currentPosts = filteredProducts.slice(firstPostIndex, lastPostIndex);
+  const [currentPosts, setcurrentposts] = React.useState([]);
+
+  // *************************************************
   const [isSizesCollapsed, setIsSizesCollapsed] = React.useState(false);
   const [isColorsCollapsed, setIsColorsCollapsed] = React.useState(false);
   const [isCategoryCollapsed, setIsCategoryCollapsed] = React.useState(false);
@@ -69,12 +83,14 @@ const CatigoriesPage = () => {
       );
     });
     setFilteredProducts(filteredProducts);
+    setcurrentposts(filteredProducts.slice(firstPostIndex, lastPostIndex));
   }, [
     selectedSizes,
     selectedColors,
     selectedCategories,
     selectedGender,
     price,
+    currentPage,
   ]);
 
   const handleSizeClick = (size) => {
@@ -114,6 +130,7 @@ const CatigoriesPage = () => {
     setSelectedCategories([]);
     setSelectedGender([]);
     setPrice(1000);
+    setCurrentPage(1);
     setFilteredProducts(products);
     document
       .querySelectorAll('.category-checklist-item input[type="checkbox"]')
@@ -692,12 +709,12 @@ const CatigoriesPage = () => {
             style={{ display: "flex", flexWrap: "wrap", marginLeft: "10px" }}
           >
             {filteredProducts.length !== 0 ? (
-              filteredProducts.map((pdt) => {
+              currentPosts.map((pdt) => {
                 return (
                   <div className="card-container">
                     {" "}
-                    <a
-                      href={`pdt/${pdt.id}`}
+                    <Link
+                      to={`/pdt/${pdt.id}`}
                       style={{ textDecoration: "none" }}
                     >
                       <NewDropsCard
@@ -706,20 +723,26 @@ const CatigoriesPage = () => {
                         pdtprice={pdt.price}
                         pdtcat={pdt.category}
                       />
-                    </a>
+                    </Link>
                   </div>
                 );
               })
             ) : (
               <div>
                 <img
-                  style={{ marginLeft: "50%" }}
                   src={nopdt}
                   alt=""
                   srcset=""
+                  className="no-pdt-img"
                 />
               </div>
             )}
+            <Pagination
+              totalPosts={filteredProducts.length}
+              postsPerPage={postsPerPage}
+              setCurrentPage={setCurrentPage}
+              currentPage={currentPage}
+            />
           </div>
         </div>
       </div>

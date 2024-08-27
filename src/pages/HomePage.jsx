@@ -8,7 +8,13 @@ import Reviews from '../components/Reviews';
 import * as React from "react";
 
 
+
 function HomePage(){
+    React.useEffect(() => {
+        // Scroll to the top when the component mounts
+        window.scrollTo(0, 0);
+      }, []);
+    
     return(
         <div className="App">
             <Slogan/>
