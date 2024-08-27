@@ -889,7 +889,7 @@ p {
 .cat-page-container .toggled-title {
   display: none;
 }
-.no-pdt-img{
+.no-pdt-img {
   margin-left: 50%;
 }
 /* home page mobile css */
@@ -942,6 +942,32 @@ p {
   }
   .nav-bar .ham-menu-bars {
     margin-left: 18px;
+  }
+  .ham-menu {
+    height: 1%;
+    width: 25%;
+    position: absolute;
+    z-index: 99000009;
+    top: 0;
+    left: 0;
+    background-color: #fafafa;
+    /* overflow-x: hidden; */
+    padding-top: 60px;
+    transition: 0.5s;
+    margin-top: 77px;
+    margin-left: 35px;
+    border-radius: 0 0 12px 12px;
+  }
+  .ham-menu a {
+    text-decoration: none;
+    position: relative;
+    bottom: 50px;
+    font-size: 12px;
+    display: block;
+    width: 100%;
+    text-align: center;
+    color: #232321;
+    /* margin-bottom: 10px; */
   }
   .slogan {
     height: 71px;
@@ -1392,7 +1418,7 @@ p {
     height: 150px;
     background-size: 130%;
     background-repeat: no-repeat;
-    margin-left: .5%;
+    margin-left: 0.5%;
     /* background-position:  -5% 80%; */
     /* transform: scale(1.2); */
   }
@@ -1460,12 +1486,11 @@ p {
     background-color: #e7e7e3;
     padding: 20px;
     overflow-y: scroll;
-
   }
-  .price-ranges{
+  .price-ranges {
     padding-bottom: 80px;
   }
-  .active-filter-btn{
+  .active-filter-btn {
     position: fixed;
     top: 0;
     left: 0;
@@ -1474,29 +1499,28 @@ p {
     z-index: 1000;
     border-radius: 0px;
     display: flex;
-    
-    padding-left:50px ;
+
+    padding-left: 50px;
   }
-  .active-filter-btn svg{
+  .active-filter-btn svg {
     margin-left: 250px;
   }
   .cat-page-body-content-products .card-container {
     margin: 1px;
     width: 171px;
     height: 310px;
+  }
+  .cat-page-body-content-products {
+    margin-top: 20px;
+  }
+  .body-title-left {
+    margin-top: -20px !important;
+  }
+  .cat-page-container {
+    width: 358px;
+  }
+  .no-pdt-img {
+    margin-left: -2px;
+    width: 90%;
+  }
 }
-.cat-page-body-content-products{
-  margin-top: 20px;
-}
-.body-title-left{
-   margin-top: -20px!important; 
-}
-.cat-page-container{
-  width: 358px;
-}
-.no-pdt-img{
-  margin-left: -2px;
-  width: 90%;
-}
-}
-

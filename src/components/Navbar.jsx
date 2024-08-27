@@ -10,6 +10,17 @@ import { auth } from "../components/firebase";
 import logout from "../assets/logout.svg";
 function Navbar() {
   const value = React.useContext(Authcontext);
+  const hamref = React.useRef(null);
+  const navref = React.useRef(null);
+  function handleHamMenu() {
+    if (hamref.current.style.display === "block") {
+      hamref.current.style.display = "none";
+      navref.current.style.borderRadius = "12px";
+    } else {
+      hamref.current.style.display = "block";
+      navref.current.style.borderRadius = "12px 12px 12px 0px";
+    }
+  }
 
   const signout2 = () => {
     signOut(auth)
@@ -21,21 +32,48 @@ function Navbar() {
       });
   };
   return (
-    <div className="nav-bar">
+    <div className="nav-bar" ref={navref}>
       <div className="nav-links">
         <Link to="/categories">New Drops🔥</Link>
         <Link to="/categories">Men</Link>
         <Link to="/categories">Women</Link>
       </div>
       <div className="ham-menu-bars">
-        <a href="javascript:void(0);" class="icon" onclick="myFunction()">
+        <a
+          href="javascript:void(0);"
+          class="icon"
+          onClick={() => {
+            handleHamMenu();
+          }}
+        >
           <i class="fa fa-bars"></i>
         </a>
       </div>
-      <div className="ham-menu">
-        <Link to="">New Drops🔥</Link>
-        <Link to="">Men</Link>
-        <Link to="">Women</Link>
+      <div className="ham-menu" ref={hamref}>
+        <Link
+          to=""
+          onClick={() => {
+            handleHamMenu();
+          }}
+        >
+          New Drops🔥
+        </Link>
+        <Link
+          to="/categories"
+          onClick={() => {
+            handleHamMenu();
+          }}
+        >
+          Men
+        </Link>
+        <Link
+          to="/categories"
+          onClick={() => {
+            handleHamMenu();
+          }}
+        >
+          Women
+        </Link>
       </div>
       <div className="nav-logo">
         <Link href="/">

@@ -50,10 +50,10 @@ const CatigoriesPage = () => {
   const [price, setPrice] = React.useState(1000);
   const [show, setShow] = React.useState(false);
   function handlefilters() {
-    if (filterRef.current.style.display === "block") {
+    if (filterRef.current.style.display === "flex") {
       filterRef.current.style.display = "none";
     } else {
-      filterRef.current.style.display = "block";
+      filterRef.current.style.display = "flex";
     }
   }
   // filtring functionality
