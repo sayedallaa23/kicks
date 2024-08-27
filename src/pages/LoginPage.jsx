@@ -62,12 +62,29 @@ const LoginPage = () => {
   };
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
+  const [isempty, setisempty] = React.useState(false);
+  const validateInputs = () => {
+    if (email.trim()===""||password.trim()==="") {
+      return false;
+    } else {
+      return true;
+    }
+  };
   const signIn = async () => {
-    try {
+
+    if(validateInputs){
+       try {
       await signInWithEmailAndPassword(auth, email, password);
     } catch (err) {
       console.error(err);
+    }   
+    setisempty(false);
+  
+  if (!validateInputs()) {
+    setisempty(true);
+  }
     }
+
   };
   onAuthStateChanged(auth, (user) => {
     if (user) {
@@ -104,7 +121,10 @@ const LoginPage = () => {
             handlerFuntion={signIn}
           />
           <Checkbox label="Keep me logged in - applies to all log in options below." />
-          <button className="wide-black-btn" onClick={signIn}>
+          {isempty && (
+          <span style={{ color: "red" }}>please fill all the fields</span>
+        )}
+          <button className="wide-black-btn" onClick={signIn} style={{marginTop:"10px"}}>
             Email Login
           </button>
           <div className="reg-btns">
