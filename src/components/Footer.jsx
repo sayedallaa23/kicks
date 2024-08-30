@@ -5,7 +5,11 @@ import facebook from "../assets/facebook.svg";
 import instagram from "../assets/instagram.svg";
 import twitter from "../assets/twitter.svg";
 import tiktok from "../assets/tiktok.svg";
+import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+
 function Footer() {
+  const navigate = useNavigate();
   return (
     <div className="footer">
       <footer>
@@ -17,7 +21,9 @@ function Footer() {
             <p>Sign up for free! Join the community.</p>
             <form action="">
               <input type="email" placeholder="Email address" />
-              <button className="black-btn">SUBMIT</button>
+              <button className="black-btn" onClick={()=>{
+                navigate("/register")
+              }}>SUBMIT</button>
             </form>
           </div>
           <div className="right-sec">
@@ -39,22 +45,22 @@ function Footer() {
               <h3>Categories</h3>
               <ul>
                 <li>
-                  <a href="">Runners</a>
+                  <Link to="/categories">Runners</Link>
                 </li>
                 <li>
-                  <a href="">Sneakers</a>
+                  <Link to="/categories">Sneakers</Link>
                 </li>
                 <li>
-                  <a href="">Basketball</a>
+                  <Link to="/categories">Basketball</Link>
                 </li>
                 <li>
-                  <a href="">Outdoor</a>
+                  <Link to="/categories">Outdoor</Link>
                 </li>
                 <li>
-                  <a href="">Golf</a>
+                  <Link to="/categories">Golf</Link>
                 </li>
                 <li>
-                  <a href="">Hiking</a>
+                  <Link to="/categories">Hiking</Link>
                 </li>
               </ul>
             </div>
@@ -62,23 +68,31 @@ function Footer() {
               <h3>Company</h3>
               <ul>
                 <li>
-                  <a href="">About</a>
+                  <Link to="/under-construction">About</Link>
                 </li>
                 <li>
-                  <a href="">Contact</a>
+                  <Link to="/under-construction">Contact</Link>
                 </li>
                 <li>
-                  <a href="">Blogs</a>
+                  <Link to="/under-construction">Blogs</Link>
                 </li>
               </ul>
             </div>
             <div className="footer-social-sec">
               <h3>Follow Us</h3>
               <div className="social-logos">
-                <img src={facebook} alt="" srcset="" />
-                <img src={instagram} alt="" srcset="" />
-                <img src={twitter} alt="" srcset="" />
-                <img src={tiktok} alt="" srcset="" />
+                <a href="https://www.facebook.com/">
+                  <img src={facebook} alt="" srcset="" />
+                </a>
+                <a href="https://x.com/">
+                  <img src={twitter} alt="" srcset="" />
+                </a>
+                <a href="https://www.instagram.com/">
+                  <img src={instagram} alt="" srcset="" />
+                </a>
+                <a href="https://www.tiktok.com/">
+                  <img src={tiktok} alt="" srcset="" />
+                </a>
               </div>
             </div>
           </div>

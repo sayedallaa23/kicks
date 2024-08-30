@@ -1,6 +1,8 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 function ProductOfYear(){
+    const navigate = useNavigate();
     return(        
             <div className="hero-img">
                 <img className="main-img" src={require('../assets/pdtofyear.jpg')}alt="" srcset="" />   
@@ -8,7 +10,9 @@ function ProductOfYear(){
              <div className="hero-left">
                 <h2>NIKE AIR MAX</h2>
                 <p>Nike introducing the new air max for <br /> everyone's comfort</p>
-                <button>Shop Now</button>
+                <button onClick={()=>{
+                    navigate('/categories')
+                }}>Shop Now</button>
                 </div>   
                 <div className="hero-right">
                     <img src={require('../assets/pdrt.jpg')}alt="" srcset="" />

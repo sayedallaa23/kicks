@@ -1,9 +1,10 @@
 import React,{useState} from "react";
 import ReviewCard from "./ReviewCard";
 import * as data from "../data.js"
-
+import { useNavigate } from "react-router-dom";
 
 function Reviews(){
+    const navigate = useNavigate();
     const [isMobile, setIsMobile] = useState(
         typeof window !== "undefined" && window.innerWidth < 700
       );
@@ -11,7 +12,9 @@ function Reviews(){
         <div className="reviews-sec">
             <div className="reviews-header">
                 <h2>Reviews</h2>
-                <button className="blue-btn reviews-seeall-btn">SEE ALL</button>
+                <button className="blue-btn reviews-seeall-btn" onClick={()=>{
+                    navigate("/under-construction")
+                }}>SEE ALL</button>
             </div>
             <div className="reviews-cards">
             {data.reviews.slice(0,isMobile?1:3).map(rev=>{

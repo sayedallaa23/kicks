@@ -1,11 +1,4 @@
-import Navbar from "./components/Navbar";
 import "./App.css";
-import Slogan from "./components/Slogan";
-import ProductOfYear from "./components/ProductOfYear";
-import NewDrops from "./components/NewDrops";
-import Catigories from "./components/Catigories";
-import Reviews from "./components/Reviews";
-import Footer from "./components/Footer";
 import * as React from "react";
 import * as ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
@@ -16,6 +9,11 @@ import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
 import CatigoriesPage from "./pages/CategoriesPage";
 import { Authprovider } from "./store/AuthContext";
+import { CartContextProvider } from "./store/CartContext";
+import CartPage from "./pages/CartPage";
+import { WomenProductsPage } from "./pages/WomenProductsPage";
+import { MenProductsPage } from "./pages/MenProductsPage";
+import UnderConstructionPage from "./pages/UnderConstructionPage";
 const router = createBrowserRouter([
   {
     element: <SiteLayout />,
@@ -41,16 +39,35 @@ const router = createBrowserRouter([
         path: "/categories",
         element: <CatigoriesPage />,
       },
+      {
+        path:"/cart",
+        element:<CartPage/>
+      },
+      {
+        path: "/categories/men",
+        element: <MenProductsPage />,
+
+      },
+      {
+        path: "/categories/women",
+        element: <WomenProductsPage />,
+      },
+
+      {
+        path: "/under-construction",
+        element: <UnderConstructionPage />,
+      }
     ],
   },
 ]);
 
 function App() {
   return (
-    <Authprovider>
-      {" "}
+    <CartContextProvider>
+    <Authprovider>      
       <RouterProvider router={router} />
     </Authprovider>
+    </CartContextProvider>
   );
 }
 

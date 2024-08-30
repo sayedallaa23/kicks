@@ -84,7 +84,7 @@ function Suggestioncar() {
 
 
   {
-    isMobile ? (settings.rows=2)&&(settings.slidesPerRow=2)&&(settings.slidesToShow= 1): console.log("disktop");
+    isMobile ? (settings.rows=2)&&(settings.slidesPerRow=2)&&(settings.slidesToShow= 1): void 0;
   }
   
 

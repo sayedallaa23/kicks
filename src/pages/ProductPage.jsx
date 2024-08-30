@@ -7,17 +7,23 @@ import Suggestioncar from "../components/suggestioncar.jsx";
 import { useParams } from "react-router-dom";
 import products from "../data.js";
 import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { CartContext } from "../store/CartContext.jsx";
 
 const ProductPage = () => {
+  const { cart, setCart } = React.useContext(CartContext);
+  const navigate = useNavigate();
   const [selectedSize, SetSelectedSize] = React.useState(null);
   const [selectedColor, setSelectedColor] = React.useState(null);
+  const [isItemInCart, setisItemInCart] = React.useState(false);
+
   const handleColorClick = (color) => {
     setSelectedColor(color);
   };
 
   const handleSizeClick = (size) => {
     SetSelectedSize(size);
-  }
+  };
 
   useEffect(() => {
     // Scroll to the top when the component mounts
@@ -39,7 +45,31 @@ const ProductPage = () => {
   const colorsAvaliable = products[pdtid].colors;
   const allSizes = [7, 8, 9, 10, 11, 12, 13, 14];
   const sizesAvaliable = products[pdtid].sizes;
-  console.log(sizesAvaliable);
+  console.log(selectedSize);
+
+  const addToCart = () => {
+    if (selectedSize && selectedColor) {
+      product.checkoutsize = selectedSize;
+      product.checkoutcolor = selectedColor;
+      setCart((oldArray) => [...oldArray, product]);
+      setisItemInCart(true);
+    } else {
+      setisItemInCart(false);
+    }
+  };
+
+  const buyItNow = () => {
+    if (selectedSize && selectedColor) {
+      product.checkoutsize = selectedSize;
+      product.checkoutcolor = selectedColor;
+      setCart((oldArray) => [...oldArray, product]);
+      navigate("/cart");
+      setisItemInCart(true);
+    } else {
+      setisItemInCart(false);
+    }
+  };
+
   return (
     <div className="App">
       <div className="pdt-details">
@@ -78,11 +108,15 @@ const ProductPage = () => {
               <p>SIZE CHART</p>
             </div>
             <div className="size-selector">
-              {allSizes.map((size,index) => {
+              {allSizes.map((size, index) => {
                 return (
                   <div
                     key={index}
-                    className={`size-num ${selectedSize===size&&sizesAvaliable.includes(size)?"active-swatch-size":null}`}
+                    className={`size-num ${
+                      selectedSize === size && sizesAvaliable.includes(size)
+                        ? "active-swatch-size"
+                        : null
+                    }`}
                     style={
                       sizesAvaliable.includes(size)
                         ? { backgroundColor: "#FFFFFF" }
@@ -97,10 +131,32 @@ const ProductPage = () => {
             </div>
           </div>
           <div className="add-to-cart">
-            <button className="blue-btn">ADD TO CART</button>
-            <button className="wide-black-btn buy-now-btn">BUY IT NOW</button>`
+            {!isItemInCart?
+            <div>
+            <button
+              className={`blue-btn ${
+                !selectedColor || !selectedSize ? "is-dark" : ""
+              }`}
+              onClick={addToCart}
+              style={{width:"100%"}}
+            >
+              ADD TO CART
+            </button>
+            <button
+              className={`wide-black-btn buy-now-btn ${
+                !selectedColor || !selectedSize ? "is-dark" : ""
+              }`}
+              onClick={buyItNow}
+            >
+              BUY IT NOW
+            </button></div>:<div style={{width:"100%"}}>
+            <p style={{color:"#4A69E2",fontSize:"20px"}}>Item added successfully</p>
+            <button className="blue-btn " onClick={()=>{
+              navigate("/cart")
+            }} style={{width:"100%"}}>Go To Cart</button></div>}
+            
           </div>
-          `
+          
           <div className="about-the-pdt-sec">
             <p className="about-the-pdt-title">ABOUT THE PRODUCT</p>
             <p className="about-the-pdt-desc">

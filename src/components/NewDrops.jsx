@@ -1,16 +1,19 @@
 import React from "react";
 import NewDropsCard from "./NewDropsCard";
 import products from "../data.js";
-import { Link } from "react-router-dom";
+import { Link ,useNavigate} from "react-router-dom";
 
 function NewDrops() {
+  const navigate = useNavigate();
   return (
     <div className="new-drops">
       <div className="new-drops-header">
         <h2>
           Don’t miss out <br /> new drops
         </h2>
-        <button className="new-drops-btn blue-btn">Shop New Drops</button>
+        <button className="new-drops-btn blue-btn"onClick={()=>{
+          navigate("/categories");
+        }}>Shop New Drops</button>
       </div>
       <div className="new-drops-card-sec">
         {products.slice(0, 4).map((product) => {

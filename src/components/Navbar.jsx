@@ -8,10 +8,14 @@ import { Authcontext } from "../store/AuthContext";
 import { signOut, getAuth } from "firebase/auth";
 import { auth } from "../components/firebase";
 import logout from "../assets/logout.svg";
+import { CartContext } from "../store/CartContext";
 function Navbar() {
   const value = React.useContext(Authcontext);
   const hamref = React.useRef(null);
   const navref = React.useRef(null);
+  const {cart, setCart} = React.useContext(CartContext);
+
+
   function handleHamMenu() {
     if (hamref.current.style.display === "block") {
       hamref.current.style.display = "none";
@@ -31,12 +35,13 @@ function Navbar() {
         console.log(error);
       });
   };
+  
   return (
     <div className="nav-bar" ref={navref}>
       <div className="nav-links">
         <Link to="/categories">New Drops🔥</Link>
-        <Link to="/categories">Men</Link>
-        <Link to="/categories">Women</Link>
+        <Link to="/categories/men">Men</Link>
+        <Link to="/categories/women">Women</Link>
       </div>
       <div className="ham-menu-bars">
         <a
@@ -59,7 +64,7 @@ function Navbar() {
           New Drops🔥
         </Link>
         <Link
-          to="/categories"
+          to="/categories/men"
           onClick={() => {
             handleHamMenu();
           }}
@@ -67,7 +72,7 @@ function Navbar() {
           Men
         </Link>
         <Link
-          to="/categories"
+          to="/categories/women"
           onClick={() => {
             handleHamMenu();
           }}
@@ -93,10 +98,9 @@ function Navbar() {
             <img src={logout} />
           </Link>
         )}
-
-        <a href="">
-          <img src={cart} alt="cart" />
-        </a>
+        <div className="cart-div">
+          <Link to={"/cart"}>{cart ? cart.length : "0"}</Link>
+        </div>
       </div>
     </div>
   );
