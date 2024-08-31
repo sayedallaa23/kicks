@@ -22,7 +22,7 @@ function Footer() {
               Join our KicksPlus <br /> Club & get 15% off
             </h3>
             <p>Sign up for free! Join the community.</p>
-            <form action="">
+            <form action=""className="footer-submit-form">
               <input type="email" placeholder="Email address" />
               <button className="black-btn" onClick={()=>{
                 if (!value[0]){
