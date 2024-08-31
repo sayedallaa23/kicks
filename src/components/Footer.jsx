@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import logo from "../assets/whlogo.svg";
 import footerlogo from "../assets/fologo.svg";
 import facebook from "../assets/facebook.svg";
@@ -7,9 +7,12 @@ import twitter from "../assets/twitter.svg";
 import tiktok from "../assets/tiktok.svg";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import { Authcontext } from "../store/AuthContext";
 
 function Footer() {
   const navigate = useNavigate();
+  const value = React.useContext(Authcontext);
+  const [wamess,setwarmess] = useState(false)
   return (
     <div className="footer">
       <footer>
@@ -22,8 +25,16 @@ function Footer() {
             <form action="">
               <input type="email" placeholder="Email address" />
               <button className="black-btn" onClick={()=>{
-                navigate("/register")
+                if (!value[0]){
+                  navigate("/register")
+                }
+                else{
+                  setwarmess(true)
+                  
+                }
+                
               }}>SUBMIT</button>
+              {wamess&&<p style={{marginTop:"6px",fontSize:"15px"}}>you are already logged in </p>}
             </form>
           </div>
           <div className="right-sec">

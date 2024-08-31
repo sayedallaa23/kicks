@@ -56,7 +56,7 @@ function Navbar() {
       </div>
       <div className="ham-menu" ref={hamref}>
         <Link
-          to=""
+          to="/categories"
           onClick={() => {
             handleHamMenu();
           }}
@@ -86,9 +86,9 @@ function Navbar() {
         </Link>
       </div>
       <div className="nav-icons">
-        <a href="">
+        <Link to="/under-construction">
           <img className="lense-icon" src={lense} alt="lense" />
-        </a>
+        </Link>
         {value[0] === false ? (
           <Link to={"/login"}>
             <img src={profile} alt="profile" />

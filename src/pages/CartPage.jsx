@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 
 const CartPage = () => {
   const navigate = useNavigate();
-  const { cart , setCart } = useContext(CartContext);
+  const { cart, setCart } = useContext(CartContext);
   const [subTotalPrice, setSubTotalPrice] = useState();
   const [tax, setTax] = useState();
   const [totalPrice, setTotalPrice] = useState();
@@ -14,7 +14,7 @@ const CartPage = () => {
   useEffect(() => {
     let total = 0.0;
     cart.forEach((item) => {
-      total += item.price;
+      total += item.price * item.quantity;
     });
     setSubTotalPrice(total.toFixed(2));
     setTax((total * 0.08).toFixed(2));
@@ -25,10 +25,18 @@ const CartPage = () => {
     window.scrollTo(0, 0);
   }, []);
 
-  const removeItem = (index)=>{
+  const removeItem = (index) => {
     setCart(cart.filter((item, i) => i !== index));
+  };
+  const updateQuantity = (index, quantity) => {
+    const newCart = [...cart];
+    newCart[index].quantity = quantity;
+    setCart(newCart);
+    if (newCart[index].quantity < 1) {
+      removeItem(index);
+    }
+  };
 
-  }
   return (
     <div className="cart-container">
       <div className="cart-header">
@@ -70,15 +78,44 @@ const CartPage = () => {
                           }}
                         ></div>
                       </div>
-                      <p>size : {product.checkoutsize}</p>
+                      <div className="size-quantity">
+                        <p className="bag-item-size">
+                          size : {product.checkoutsize}
+                        </p>
+                        <div className="cart-quantity">
+                          <p>Quantity</p>
+                          <div className="cart-quantitiy-btns">
+                            <button
+                              onClick={() => {
+                                updateQuantity(index, (product.quantity -= 1));
+                              }}
+                            >
+                              -
+                            </button>
+                            <p>{product.quantity}</p>
+                            <button
+                              onClick={() => {
+                                updateQuantity(index, (product.quantity += 1));
+                              }}
+                            >
+                              +
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+
                       <div className="cart-pdt-price-mob">
-                      <p>${product.price}</p>
-                    </div>
-                      <button onClick={()=>{
-                        removeItem(index)
-                      }}
-                      className="wide-black-btn"
-                      >Remove</button>
+                        <p>${product.price}</p>
+                      </div>
+
+                      <button
+                        onClick={() => {
+                          removeItem(index);
+                        }}
+                        className="wide-black-btn"
+                      >
+                        Remove
+                      </button>
                     </div>
                     <div className="cart-pdt-price">
                       <p>${product.price}</p>
@@ -107,9 +144,16 @@ const CartPage = () => {
             <p>Total</p>
             <p>${totalPrice}</p>
           </div>
-          <button className="wide-black-btn cart-checkout-btn" onClick={()=>{
-            navigate("/under-construction")
-          }}>CHECKOUT</button>
+          <button
+            className={`wide-black-btn cart-checkout-btn ${
+              cart.length == 0 && "is-dark"
+            }`}
+            onClick={() => {
+              navigate("/under-construction");
+            }}
+          >
+            CHECKOUT
+          </button>
         </div>
       </div>
       <Suggestioncar />

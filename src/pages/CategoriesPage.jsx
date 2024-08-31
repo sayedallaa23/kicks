@@ -732,15 +732,15 @@ const CatigoriesPage = () => {
                 <img src={nopdt} alt="" srcset="" className="no-pdt-img" />
               </div>
             )}
-            <Pagination
-              totalPosts={filteredProducts.length}
-              postsPerPage={postsPerPage}
-              setCurrentPage={setCurrentPage}
-              currentPage={currentPage}
-            />
           </div>
         </div>
-      </div>
+      </div>{" "}
+      <Pagination
+        totalPosts={filteredProducts.length}
+        postsPerPage={postsPerPage}
+        setCurrentPage={setCurrentPage}
+        currentPage={currentPage}
+      />
     </div>
   );
 };

@@ -51,6 +51,7 @@ const ProductPage = () => {
     if (selectedSize && selectedColor) {
       product.checkoutsize = selectedSize;
       product.checkoutcolor = selectedColor;
+      product.quantity = 1
       setCart((oldArray) => [...oldArray, product]);
       setisItemInCart(true);
     } else {
