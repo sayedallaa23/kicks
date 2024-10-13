@@ -1,72 +1,45 @@
-import React,{useState} from "react";
+import React, { useState } from "react";
 import ReviewCard from "./ReviewCard";
-import * as data from "../data.js"
+import * as data from "../data.js";
 import { useNavigate } from "react-router-dom";
 
-function Reviews(){
-    const navigate = useNavigate();
-    const [isMobile, setIsMobile] = useState(
-        typeof window !== "undefined" && window.innerWidth < 700
-      );
-    return(
-        <div className="reviews-sec">
-            <div className="reviews-header">
-                <h2>Reviews</h2>
-                <button className="blue-btn reviews-seeall-btn" onClick={()=>{
-                    navigate("/under-construction")
-                }}>SEE ALL</button>
-            </div>
-            <div className="reviews-cards">
-            {data.reviews.slice(0,isMobile?1:3).map(rev=>{
-                return(
-                    <ReviewCard key={rev.id} reviewTitle={rev.title} review={rev.review}
-                    profileImage={rev.profileImage}
-                    productImage = {rev.pdtImage}
-                    // ratingNum = {rev.rating}
-                    rate = {rev.rating.toFixed(1)}
-                    stars = {rev.rating}
-                    />
-                )
-            })}
-            </div>
-        </div>
-    )
+function Reviews() {
+  const navigate = useNavigate();
+  const [isMobile, setIsMobile] = useState(
+    typeof window !== "undefined" && window.innerWidth < 800
+  );
+  return (
+    <div className="reviews-sec2 mb-[10%] lg:mb-0 md:mb-0">
+      <div className="reviews-header2 flex justify-between items-center mb-[10%]">
+        <h2 className="text-[#232321] text-[1.2rem] md:text-[1.5rem] xl:text-[5rem] lg:text-[3rem] font-[700] uppercase">
+          Reviews
+        </h2>
+        <button
+          className="text-[#ffffff] text-[10px] md:text-[15px] lg:text-[20px] bg-[#4a69e2] p-2 rounded-lg px-4 lg:px-6 mr-3"
+          onClick={() => {
+            navigate("/under-construction");
+          }}
+        >
+          SEE ALL
+        </button>
+      </div>
+      <div className="flex gap-3">
+        {data.reviews.slice(0, isMobile ? 1 : 3).map((rev) => {
+          return (
+            <ReviewCard
+              key={rev.id}
+              reviewTitle={rev.title}
+              review={rev.review}
+              profileImage={rev.profileImage}
+              productImage={rev.pdtImage}
+              rate={rev.rating.toFixed(1)}
+              stars={rev.rating}
+            />
+          );
+        })}
+      </div>
+    </div>
+  );
 }
 
-
-export default Reviews
-
-
-// Abanoub N. Naguib
-// function DisplayStars({ rating }) {
-//   return (
-//     <div className="flex  flex-row  w-full ">
-//       {[...Array(5)].map((item: any, idx: number) => {
-//         if (rating >= 1) {
-//           rating--;
-//           return (
-//             <Star className="mr-1" fill="#ed992d" stroke="none" width={8.54} />
-//           );
-//         } else if (rating === 0.5) {
-//           rating--;
-//           return (
-//             <>
-//               <StarHalf fill="#ed992d" stroke="none" width={8.54} />
-//               <StarHalf
-//                 width={8.54}
-//                 className="scale-x-[-1] mr-1 -ml-2"
-//                 stroke="none"
-//                 fill="#e2e2e2"
-//               />
-//             </>
-//           );
-//         } else {
-//           return (
-//             <Star stroke="none" fill="#e2e2e2" className="mr-1" width={8.54} />
-//           );
-//         }
-//       })}
-//     </div>
-//   );
-// }
-
+export default Reviews;

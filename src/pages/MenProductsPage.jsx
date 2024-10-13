@@ -4,7 +4,8 @@ import NewDropsCard from "../components/NewDropsCard.jsx";
 import { Link, useSubmit } from "react-router-dom";
 import nopdt from "../assets/no-product.png";
 import Pagination from "../components/Pagination.jsx";
-
+import { IoMdClose } from "react-icons/io";
+import { FaAngleUp,FaAngleDown } from "react-icons/fa6";
 export const MenProductsPage = () => {
   React.useEffect(() => {
     // Scroll to the top when the component mounts
@@ -172,22 +173,30 @@ export const MenProductsPage = () => {
     }
   };
   return (
-    <div className="cat-page-container">
-      <div className="cat-page-header">
-        <div className="header-text">
+    <div className="w-[90%] mx-auto my-[4%]">
+      <div className="relative h-[15vh] xl:h-[35vh]">
+        <img
+          src={require(`../assets/pdts/50.jpg`)}
+          alt=""
+          className="absolute object-cover w-[100%] h-[15vh] rounded-3xl xl:h-[35vh] xl:object-[center_-450px] "
+        />
+        <div className="absolute text-[#FFFFFF] top-[2.5rem] left-[1rem] xl:top-[10rem]">
           <h3>Limited time only</h3>
-          <h1>Get 30% off</h1>
-          <p>
+          <h1 className="font-[700]">Get 30% off</h1>
+          <p className="text-[8px] w-[70%]">
             Sneakers made with your comfort in mind so you can put all of your
             focus into your next session.
           </p>
         </div>
       </div>
-      <div className="cat-page-body">
-        <div className="cat-page-body-title">
-          <div className="cat-page-body-content-filters toggled-title">
+      <div className="cat-page-body2 ">
+        <div className="cat-page-body-title flex justify-between items-center my-[2rem]">
+          {/* mob filter btn */}
+          <div className="mob-filters border-[1px] md:hidden">
             <button
-              className={`filters-btn ${show ? "active-filter-btn" : ""}`}
+              className={`bg-[#f1f1f1] py-[1rem] px-[2rem] rounded-xl ${
+                show ? "active-filter-btn" : ""
+              }`}
               onClick={() => {
                 setShow(!show);
                 handlefilters();
@@ -195,35 +204,33 @@ export const MenProductsPage = () => {
               ref={filterbtnRef}
             >
               <div>Filters</div>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                class="lucide lucide-align-center"
-              >
-                <line x1="21" x2="3" y1="6" y2="6" />
-                <line x1="17" x2="7" y1="12" y2="12" />
-                <line x1="19" x2="5" y1="18" y2="18" />
-              </svg>
+
               <div></div>
             </button>
-            <div className="allfilter" ref={filterRef}>
+            <div
+              className="fixed top-0 left-0 bg-[#f1f1f1] w-[100%] z-50 h-[100%] p-[2rem] hidden"
+              ref={filterRef}
+            >
+              <div className="flex justify-between mb-[1rem]">
+                <div className="font-[700]">Filters</div>
+                <IoMdClose
+                  onClick={() => {
+                    setShow(!show);
+                    handlefilters();
+                  }}
+                />
+              </div>
               <div className="cat-page-body-content-filters-sizes">
                 <div
                   style={{
                     display: "flex",
                     justifyContent: "space-between",
-                    marginBottom: "20px",
+                    marginBottom: "20px"
+                    ,alignItems:"center"
                   }}
                 >
                   {" "}
-                  <h4>Size</h4>
+                  <h4 className="font-[700]">Size</h4>
                   <button
                     style={{
                       fontSize: "22px",
@@ -232,15 +239,14 @@ export const MenProductsPage = () => {
                       backgroundColor: "#e7e7e3",
                     }}
                     onClick={() => handleCollapse("sizes")}
-                    className={isSizesCollapsed ? "reverse-btn" : null}
                   >
-                    ^
+                  {isSizesCollapsed ?<FaAngleDown className="text-[15px]"/>:<FaAngleUp className="text-[15px]"/>}
                   </button>
                 </div>
 
                 <div
                   className={`sizes-btns ${
-                    isSizesCollapsed ? "coll-inactive" : null
+                    isSizesCollapsed ? "!hidden" : null
                   }`}
                   style={{
                     display: "flex",
@@ -271,8 +277,8 @@ export const MenProductsPage = () => {
                   })}
                 </div>
               </div>
-              <div style={{ display: "flex", justifyContent: "space-between" }}>
-                <h4>colors</h4>
+              <div style={{ display: "flex", justifyContent: "space-between",alignItems:"center" }}>
+                <h4 className="font-[700]">colors</h4>
                 <button
                   style={{
                     fontSize: "22px",
@@ -281,15 +287,14 @@ export const MenProductsPage = () => {
                     backgroundColor: "#e7e7e3",
                   }}
                   onClick={() => handleCollapse("colors")}
-                  className={isColorsCollapsed ? "reverse-btn" : null}
                 >
-                  ^
+                {isColorsCollapsed ?<FaAngleDown className="text-[15px]" />:<FaAngleUp className="text-[15px]"/>}
                 </button>
               </div>
 
               <div
                 className={`cat-page-body-content-filters-colors ${
-                  isColorsCollapsed ? "coll-inactive" : null
+                  isColorsCollapsed ? "!hidden" : null
                 }`}
                 style={{
                   display: "flex",
@@ -317,10 +322,11 @@ export const MenProductsPage = () => {
               </div>
               <div className={`cat-page-body-content-filters-category `}>
                 <div
-                  style={{ display: "flex", justifyContent: "space-between" }}
+                  style={{ display: "flex", justifyContent: "space-between",alignItems:"center" }}
+                 className="mb-[1rem]"
                 >
                   {" "}
-                  <h4>Category</h4>
+                  <h4 className="font-[700]">Category</h4>
                   <button
                     style={{
                       fontSize: "22px",
@@ -329,15 +335,14 @@ export const MenProductsPage = () => {
                       backgroundColor: "#e7e7e3",
                     }}
                     onClick={() => handleCollapse("category")}
-                    className={isCategoryCollapsed ? "reverse-btn" : null}
                   >
-                    ^
+                  {isCategoryCollapsed ?<FaAngleDown className="text-[15px]" />:<FaAngleUp className="text-[15px]"/>}
                   </button>
                 </div>
 
                 <div
                   className={`category-checklist-container ${
-                    isCategoryCollapsed ? "coll-inactive" : null
+                    isCategoryCollapsed ? "!hidden" : null
                   }`}
                   style={{ marginBottom: "20px" }}
                 >
@@ -365,9 +370,10 @@ export const MenProductsPage = () => {
                 style={{ marginBottom: "20px" }}
               >
                 <div
-                  style={{ display: "flex", justifyContent: "space-between" }}
+                  style={{ display: "flex", justifyContent: "space-between",alignItems:"center" }}
+                 className="mb-[1rem]"
                 >
-                  <h4>Gender</h4>
+                  <h4 className="font-[700]">Gender</h4>
                   <button
                     style={{
                       fontSize: "22px",
@@ -376,12 +382,11 @@ export const MenProductsPage = () => {
                       backgroundColor: "#e7e7e3",
                     }}
                     onClick={() => handleCollapse("gender")}
-                    className={isGenderCollapsed ? "reverse-btn" : null}
                   >
-                    ^
+                  {isGenderCollapsed ?<FaAngleDown className="text-[15px]" />:<FaAngleUp className="text-[15px]"/>}
                   </button>
                 </div>
-                <div className={isGenderCollapsed ? "coll-inactive" : null}>
+                <div className={isGenderCollapsed ? "!hidden" : null}>
                   <input
                     type="checkbox"
                     style={{ marginRight: "5px" }}
@@ -407,10 +412,10 @@ export const MenProductsPage = () => {
                   style={{
                     display: "flex",
                     justifyContent: "space-between",
-                    width: "315px",
                   }}
+                  className="mb-[1rem]"
                 >
-                  <h4>Price</h4>
+                  <h4 className="font-[700]">Price</h4>
                   <button
                     style={{
                       fontSize: "22px",
@@ -419,12 +424,12 @@ export const MenProductsPage = () => {
                       backgroundColor: "#e7e7e3",
                     }}
                     onClick={() => handleCollapse("price")}
-                    className={isPriceCollapsed ? "reverse-btn" : null}
+                    className="items-center"
                   >
-                    ^
+                  {isPriceCollapsed ?<FaAngleDown className="text-[15px]" />:<FaAngleUp className="text-[15px]"/>}
                   </button>
                 </div>
-                <div className={isPriceCollapsed ? "coll-inactive" : null}>
+                <div className={isPriceCollapsed ? "!hidden"  : null}>
                   <input
                     type="range"
                     name=""
@@ -434,6 +439,7 @@ export const MenProductsPage = () => {
                     step="25"
                     value={price}
                     onChange={(e) => setPrice(e.target.value)}
+                    className="w-[100%]"
                   />
                   <div
                     className="price-ranges"
@@ -450,46 +456,38 @@ export const MenProductsPage = () => {
               </div>
             </div>
           </div>
-          <div className="body-title-left">
-            <h2>Life Style Shoes</h2>
+          <div className="body-title-left hidden md:flex flex-col">
+            <h2 className="font-[700] text-[1.5rem]">Life Style Shoes</h2>
             <p>{filteredProducts.length} items</p>
           </div>
           <div className="body-title-right">
             <button
-              className="view-all-btn"
+              className="bg-[#f1f1f1] py-[1rem] px-[2rem] rounded-xl"
               onClick={restFilters}
-              style={{
-                fontSize: "16px",
-                fontWeight: "600",
-                borderRadius: "16px",
-                border: "none",
-                cursor: "pointer",
-                width: "184px",
-                height: "54px",
-              }}
             >
               View All
             </button>
           </div>
         </div>
-        <div className="cat-page-body-content">
+        <div className="cat-page-body-content flex flex-col md:flex-row gap-[4rem]">
           {/* filllllllllllllllllters */}
-          <div className="body-title-left toggled-title">
-            <h2>Life Style Shoes</h2>
+          <div className="phone-title md:hidden">
+            <h2 className="font-[700] text-[1.2rem]">Life Style Shoes</h2>
             <p>{filteredProducts.length} items</p>
           </div>
-          <div className="cat-page-body-content-filters">
-            <h3>Filters</h3>
+          <div className="pc-filters hidden md:flex flex-col w-[30%] shrink-0 ">
+            <h3 className="font-[700] mb-[1rem]">Filters</h3>
             <div className="cat-page-body-content-filters-sizes">
               <div
                 style={{
                   display: "flex",
                   justifyContent: "space-between",
-                  marginBottom: "20px",
+                  marginBottom: "20px"
+                  ,alignItems:"center"
                 }}
               >
                 {" "}
-                <h4>Size</h4>
+                <h4 className="font-[700]">Size</h4>
                 <button
                   style={{
                     fontSize: "22px",
@@ -498,15 +496,15 @@ export const MenProductsPage = () => {
                     backgroundColor: "#e7e7e3",
                   }}
                   onClick={() => handleCollapse("sizes")}
-                  className={isSizesCollapsed ? "reverse-btn" : null}
+                  
                 >
-                  ^
+                  {isSizesCollapsed ?<FaAngleDown className="text-[15px]"/>:<FaAngleUp className="text-[15px]"/>}
                 </button>
               </div>
 
               <div
                 className={`sizes-btns ${
-                  isSizesCollapsed ? "coll-inactive" : null
+                  isSizesCollapsed ? "!hidden" : null
                 }`}
                 style={{
                   display: "flex",
@@ -535,8 +533,8 @@ export const MenProductsPage = () => {
                 })}
               </div>
             </div>
-            <div style={{ display: "flex", justifyContent: "space-between" }}>
-              <h4>colors</h4>
+            <div style={{ display: "flex", justifyContent: "space-between",alignItems:"center" }}>
+              <h4 className="font-[700]">colors</h4>
               <button
                 style={{
                   fontSize: "22px",
@@ -545,15 +543,15 @@ export const MenProductsPage = () => {
                   backgroundColor: "#e7e7e3",
                 }}
                 onClick={() => handleCollapse("colors")}
-                className={isColorsCollapsed ? "reverse-btn" : null}
+
               >
-                ^
+                {isColorsCollapsed ?<FaAngleDown className="text-[15px]" />:<FaAngleUp className="text-[15px]"/>}
               </button>
             </div>
 
             <div
               className={`cat-page-body-content-filters-colors ${
-                isColorsCollapsed ? "coll-inactive" : null
+                isColorsCollapsed ? "!hidden" : null
               }`}
               style={{
                 display: "flex",
@@ -580,9 +578,9 @@ export const MenProductsPage = () => {
               })}
             </div>
             <div className={`cat-page-body-content-filters-category `}>
-              <div style={{ display: "flex", justifyContent: "space-between" }}>
+              <div style={{ display: "flex", justifyContent: "space-between",alignItems:"center" }}  className="mb-[1rem]">
                 {" "}
-                <h4>Category</h4>
+                <h4 className="font-[700]">Category</h4>
                 <button
                   style={{
                     fontSize: "22px",
@@ -591,15 +589,15 @@ export const MenProductsPage = () => {
                     backgroundColor: "#e7e7e3",
                   }}
                   onClick={() => handleCollapse("category")}
-                  className={isCategoryCollapsed ? "reverse-btn" : null}
+     
                 >
-                  ^
+                  {isCategoryCollapsed ?<FaAngleDown className="text-[15px]" />:<FaAngleUp className="text-[15px]"/>}
                 </button>
               </div>
 
               <div
                 className={`category-checklist-container ${
-                  isCategoryCollapsed ? "coll-inactive" : null
+                  isCategoryCollapsed ? "!hidden" : null
                 }`}
                 style={{ marginBottom: "20px" }}
               >
@@ -622,16 +620,57 @@ export const MenProductsPage = () => {
                 })}
               </div>
             </div>
-
+            <div
+              className={`cat-page-body-content-filters-gender`}
+              style={{ marginBottom: "20px" }}
+            >
+              <div style={{ display: "flex", justifyContent: "space-between",alignItems:"center" }}>
+                <h4 className="font-[700]">Gender</h4>
+                <button
+                  style={{
+                    fontSize: "22px",
+                    border: "none",
+                    cursor: "pointer",
+                    backgroundColor: "#e7e7e3",
+                  }}
+                  onClick={() => handleCollapse("gender")}
+   className="mb-[1rem]"
+                >
+                  {isGenderCollapsed ?<FaAngleDown className="text-[15px]" />:<FaAngleUp className="text-[15px]"/>}
+                </button>
+              </div>
+              <div className={isGenderCollapsed ? "!hidden" : null}>
+                <input
+                  type="checkbox"
+                  style={{ marginRight: "5px" }}
+                  value="men"
+                  onClick={() => {
+                    handleGenderChange("men");
+                  }}
+                />
+                <span style={{ marginRight: "20px" }}>Men</span>
+                <input
+                  type="checkbox"
+                  style={{ marginRight: "5px" }}
+                  value="women"
+                  onClick={() => {
+                    handleGenderChange("women");
+                  }}
+                />
+                <span>Women</span>
+              </div>
+            </div>
             <div className={`cat-page-body-content-filters-price`}>
               <div
                 style={{
                   display: "flex",
                   justifyContent: "space-between",
-                  width: "315px",
+                  // width: "315px",
+                  
                 }}
+                className="items-center"
               >
-                <h4>Price</h4>
+                <h4 className="font-[700]">Price</h4>
                 <button
                   style={{
                     fontSize: "22px",
@@ -640,12 +679,12 @@ export const MenProductsPage = () => {
                     backgroundColor: "#e7e7e3",
                   }}
                   onClick={() => handleCollapse("price")}
-                  className={isPriceCollapsed ? "reverse-btn" : null}
+  className="mb-[1rem]"
                 >
-                  ^
+                  {isPriceCollapsed ?<FaAngleDown className="text-[15px]" />:<FaAngleUp className="text-[15px]"/>}
                 </button>
               </div>
-              <div className={isPriceCollapsed ? "coll-inactive" : null}>
+              <div className={isPriceCollapsed ? "!hidden" : null}>
                 <input
                   type="range"
                   name=""
@@ -655,6 +694,7 @@ export const MenProductsPage = () => {
                   step="25"
                   value={price}
                   onChange={(e) => setPrice(e.target.value)}
+                  className="w-[100%]"
                 />
                 <div
                   className="price-ranges"
@@ -670,14 +710,11 @@ export const MenProductsPage = () => {
               </div>
             </div>
           </div>
-          <div
-            className="cat-page-body-content-products"
-            style={{ display: "flex", flexWrap: "wrap", marginLeft: "10px" }}
-          >
+          <div className="products-secion flex flex-wrap gap-1 mt-[2rem] lg:gap-3 w-[100%]">
             {filteredProducts.length !== 0 ? (
               currentPosts.map((pdt) => {
                 return (
-                  <div className="card-container">
+                  <div className="card-container w-[46%] md:w-[40%] lg:w-[30%]">
                     {" "}
                     <Link
                       to={`/pdt/${pdt.id}`}
@@ -694,19 +731,19 @@ export const MenProductsPage = () => {
                 );
               })
             ) : (
-              <div>
-                <img src={nopdt} alt="" srcset="" className="no-pdt-img" />
+              <div className="w-[100%] mx-auto">
+                <img src={nopdt} alt="" srcset="" className="mx-auto" />
               </div>
             )}
-            <Pagination
-              totalPosts={filteredProducts.length}
-              postsPerPage={postsPerPage}
-              setCurrentPage={setCurrentPage}
-              currentPage={currentPage}
-            />
           </div>
         </div>
       </div>
+      <Pagination
+        totalPosts={filteredProducts.length}
+        postsPerPage={postsPerPage}
+        setCurrentPage={setCurrentPage}
+        currentPage={currentPage}
+      />
     </div>
   );
 };

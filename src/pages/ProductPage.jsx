@@ -1,4 +1,4 @@
-import Navbar from "../components/Navbar";
+import Navbar from "../components/Nabar/Navbar.jsx";
 import NewDrops from "../components/NewDrops";
 import Footer from "../components/Footer";
 import * as React from "react";
@@ -72,28 +72,28 @@ const ProductPage = () => {
   };
 
   return (
-    <div className="App">
-      <div className="pdt-details">
-        <div className="pdt-page-top-left">
+    <div className="w-[90%] mx-auto my-[10%]">
+      <div className="pdt-details2 flex flex-col md:flex-row mb-[5%]">
+        <div className="pdt-page-top-left2 md:w-[70%]">
           <PdtCarosel />
         </div>
-        <div className="pdt-page-top-right">
-          <button
-            className="blue-btn new-release-btn"
+        <div className="pdt-page-top-right2 md:w-[30%] my-[3rem] md:my-0 md:ml-[2rem]">
+          <div
+            className="bg-[#4A69E2] px-[1rem] py-[0.5rem] rounded-xl text-[#FFFFFF] w-fit"
             style={{ marginBottom: 20, cursor: "default" }}
           >
             New Release
-          </button>
-          <h1>{products[pdtid].name}</h1>
-          <p className="pdt-page-top-right-price">${products[pdtid].price}</p>
-          <div className="color-sel-sec">
+          </div>
+          <h1 className="font-[700] text-[1.2rem]">{products[pdtid].name}</h1>
+          <p className="text-[#4A69E2] font-[700]">${products[pdtid].price}</p>
+          <div className="flex items-center mt-[1rem]">
             <p>color</p>
-            <div className="color-selector">
+            <div className="flex items-center">
               {colorsAvaliable.map((colorhex, index) => {
                 return (
                   <div
                     key={index}
-                    className={`color-circle ${
+                    className={`w-[20px] h-[20px] rounded-[50%] mx-[0.5rem] cursor-pointer	${
                       selectedColor === colorhex ? "active-swatch" : ""
                     }`}
                     style={{ backgroundColor: colorhex }}
@@ -103,12 +103,12 @@ const ProductPage = () => {
               })}
             </div>
           </div>
-          <div className="size-sel-sec">
-            <div className="size-chart">
+          <div className="">
+            <div className="size-chart flex justify-between my-[1rem]">
               <p>SIZE</p>
               <p>SIZE CHART</p>
             </div>
-            <div className="size-selector">
+            <div className="size-selector flex flex-wrap gap-1">
               {allSizes.map((size, index) => {
                 return (
                   <div
@@ -135,7 +135,7 @@ const ProductPage = () => {
             {!isItemInCart?
             <div>
             <button
-              className={`blue-btn ${
+              className={`bg-[#232321] w-[100%] md:w-[80%] text-[#fff] rounded-md p-[0.5rem] lg:w-[80%] mt-[1.5rem] ${
                 !selectedColor || !selectedSize ? "is-dark" : ""
               }`}
               onClick={addToCart}
@@ -144,7 +144,7 @@ const ProductPage = () => {
               ADD TO CART
             </button>
             <button
-              className={`wide-black-btn buy-now-btn ${
+              className={`bg-[#4A69E2] w-[100%]  text-[#fff] rounded-md p-[0.5rem]  mt-[1rem] ${
                 !selectedColor || !selectedSize ? "is-dark" : ""
               }`}
               onClick={buyItNow}
@@ -158,9 +158,9 @@ const ProductPage = () => {
             
           </div>
           
-          <div className="about-the-pdt-sec">
-            <p className="about-the-pdt-title">ABOUT THE PRODUCT</p>
-            <p className="about-the-pdt-desc">
+          <div className="my-[1rem]">
+            <p className="font-[700] mb-[1rem]">ABOUT THE PRODUCT</p>
+            <p className="text-[12px] lg:text-[1rem]">
               Shadow Navy / Army Green This product is excluded from all
               promotional discounts and offers. Pay over time in interest-free
               installments with Affirm, Klarna or Afterpay. Join adiClub to get

@@ -7,7 +7,8 @@ const UnderConstructionPage = () => {
         window.scrollTo(0, 0);
       }, []);
     return (
-   <img src={uc2} alt="" className="underconstruction"/>
+      <div className="w-[90%] mx-auto my-[20%]">
+   <img src={uc2} alt="" className="mx-auto"/></div>
     )
  
 };

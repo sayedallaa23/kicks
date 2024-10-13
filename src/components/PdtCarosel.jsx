@@ -14,10 +14,11 @@ function PdtCarosel() {
   const settings = {
     customPaging: function (i) {
       return (
-        <a>          
-          <img src="https://placehold.co/64x64" className="dot" />
-          
+        <a>
+          <img src={require(`../assets/pdts/${74+i}.jpg`)} className="dot" />
+
         </a>
+        
       );
     },
     dots: true,
@@ -26,33 +27,37 @@ function PdtCarosel() {
     speed: 500,
     slidesToShow: 1,
     slidesToScroll: 1,
+    arrows: false,
   };
   return (
-    <div className="pdt-carousel">
+    <div className="">
       {isMobile ? (
-        <div style={{ }}>
+        <div className="">
           <Slider {...settings}>
             <div>
-            <img src="https://placehold.co/358x273" alt="" className="a7000"/>
+              <img src={require("../assets/pdts/74.jpg")} alt="" className="" />
             </div>
             <div>
-            <img src="https://placehold.co/358x273"  alt="" className="a7000"/>
+              <img src={require("../assets/pdts/75.jpg")} alt="" className="" />
             </div>
             <div>
-            <img src="https://placehold.co/358x273"  alt="" className="a7000"/>
+              <img src={require("../assets/pdts/76.jpg")}alt="" className="" />
             </div>
             <div>
-            <img src="https://placehold.co/358x273"  alt="" className="a7000"/>
+              <img src={require("../assets/pdts/77.jpg")} alt="" className="" />
             </div>
           </Slider>
         </div>
       ) : (
-        <div>
-          {" "}
-          <img src="https://placehold.co/429x510" alt="" srcset="" />
-          <img src="https://placehold.co/429x510" alt="" srcset="" />
-          <img src="https://placehold.co/429x510" alt="" srcset="" />
-          <img src="https://placehold.co/429x510" alt="" srcset="" />{" "}
+        <div className="flex flex-col gap-2 rounded-[50px] overflow-hidden  md:h-[30%]">
+          <div className="flex gap-2">
+            <img src={require("../assets/pdts/24.jpg")} alt="" srcset="" className="w-[50%] xl:h-[40vh] md:h-[20vh] object-cover"/>
+            <img src={require("../assets/pdts/32.jpg")} alt="" srcset="" className="w-[50%] xl:h-[40vh] md:h-[20vh] object-cover"/>
+          </div>
+          <div className="flex gap-2">
+            <img src={require("../assets/pdts/42.jpg")} alt="" srcset="" className="w-[50%] xl:h-[40vh] md:h-[20vh] object-cover"/>
+            <img src={require("../assets/pdts/34.jpg")} alt="" srcset="" className="w-[50%] xl:h-[40vh] md:h-[20vh] object-cover"/>
+          </div>
         </div>
       )}
     </div>
